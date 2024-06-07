@@ -1,0 +1,18 @@
+Mode of tansports = 
+SWITCH(
+    'table_name'[MODETRAN],
+    "30", "Truck",
+    "11", "Vessel, Containerized",
+    "40", "Air",
+    "21", "Rail, Containerized",
+    "20", "Rail",
+    "10", "Vessel, Non-Containerized",
+    "31", "Truck, Containerized", 
+    "70", "Fixed Transport Installations",
+    "41", "Air, Containerized", 
+    "12", "Barge", 
+    "32", "Auto",
+    "33", "Pedestrian", 
+    "34", "Road, Other",
+    "Unknown"
+    )
