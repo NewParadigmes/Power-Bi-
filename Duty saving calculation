@@ -1,0 +1,66 @@
+Duty saved = 
+VAR Quantity = '[QTY_1] "Quantity"
+VAR UOM = '[UOM_1] "Unit of measure"
+VAR BasicDutyRate =
+    SWITCH (
+        UOM,
+        "KG", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "KG" && 'US rates'[tariffnum] = [HTSUSANO]),
+                VALUE('US rates'[basicdutyratestring])
+            ),
+        "DOZ", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "DOZ" && 'US rates'[tariffnum] = [HTSUSANO]), 
+                VALUE('US rates'[basicdutyratestring])
+            ) * 12,
+        "NO", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "NO" && 'US rates'[tariffnum] = [HTSUSANO]), 
+                VALUE('US rates'[basicdutyratestring])
+            ),
+        "CYK", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "CYK" && 'US rates'[tariffnum] = [HTSUSANO]), 
+                VALUE('US rates'[basicdutyratestring])
+            ),
+        "GR", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "GR" && 'US rates'[tariffnum] = [HTSUSANO]), 
+                VALUE('US rates'[basicdutyratestring])
+            ),
+        "L", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "L" && 'US rates'[tariffnum] = [HTSUSANO]), 
+                VALUE('US rates'[basicdutyratestring])
+            ), 
+        "M2", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "M2" && 'US rates'[tariffnum] = [HTSUSANO]), 
+                VALUE('US rates'[basicdutyratestring])
+            ), 
+        "M3", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "M3" && 'US rates'[tariffnum] = [HTSUSANO]), 
+                VALUE('US rates'[basicdutyratestring])
+            ), 
+        "PFL", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "PFL" && 'US rates'[tariffnum] = [HTSUSANO]), 
+                VALUE('US rates'[basicdutyratestring])
+            ),
+        "T", 
+            SUMX(
+                FILTER('US rates', 'US rates'[unitofmeasure1] = "T" && 'US rates'[tariffnum] = '[HTSUSANO]), 
+                VALUE('US rates'[basicdutyratestring])
+            ),
+        0
+    )
+
+VAR DutySavedRatePercent = 
+    [LINE_VAL] * 
+    SUMX(
+        RELATEDTABLE('Tariff and rate in % US'), VALUE('Tariff and rate in % US'[Rate in %]))
+
+RETURN 
+    Quantity * BasicDutyRate + DutySavedRatePercent 
