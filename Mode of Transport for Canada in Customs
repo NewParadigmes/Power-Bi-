@@ -1,0 +1,10 @@
+Mode of Transport = 
+SWITCH (
+   'table_name'[MODEOFTRANSPORT],
+   "H", "Highway",
+   "A", "Air",
+   "W", "Water",
+   "R", "Rail",
+    "P", "Pipeline",
+    "M", "Postal"
+)
